@@ -103,7 +103,7 @@ class _Logar extends State<Logar> {
           margin: EdgeInsets.all(0),
           // ignore: deprecated_member_use
           child: RaisedButton(
-            onPressed: () {},
+            onPressed: () => widget.onLogin(),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(80.0)),
             padding: EdgeInsets.all(0.0),

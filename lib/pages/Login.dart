@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_portal_imobiliario/pages/Home.dart';
 import 'package:flutter_portal_imobiliario/widgets/Register.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:async';
@@ -51,7 +52,9 @@ class _Login extends State<Login> {
     );
   }
 
-  _sendLogin() {}
+  _sendLogin() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+  }
 
   @override
   void initState() {
