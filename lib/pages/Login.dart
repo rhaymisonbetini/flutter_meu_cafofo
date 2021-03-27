@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_portal_imobiliario/pages/Home.dart';
 import 'package:flutter_portal_imobiliario/widgets/Register.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:async';
 
 import 'package:flutter_portal_imobiliario/widgets/Logar.dart';
-import 'package:flutter_portal_imobiliario/widgets/initial.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -27,7 +27,7 @@ class _Login extends State<Login> {
     'Tudo que você procura na palma da sua mão'
   ];
 
-  bool isLogin = false;
+  bool isLogin = true;
   bool isRegister = false;
 
   String email;
@@ -74,6 +74,13 @@ class _Login extends State<Login> {
         countDown == 2 ? countDown = 0 : countDown++;
       });
     });
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
   }
 
   Widget build(BuildContext context) {
@@ -91,52 +98,73 @@ class _Login extends State<Login> {
           ),
           !isRegister
               ? Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      SizedBox(
+                        height: 150.0,
+                      ),
                       ClipOval(
                         child: Image.asset(
                           'assets/logo.jpeg',
                           height: 180,
                           fit: BoxFit.fill,
                         ),
-                      )
+                      ),
+                      SizedBox(
+                        height: 50.0,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                        child: Center(
+                          child: Text(
+                            title,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Color(0xffBA9BA0),
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                        child: Center(
+                          child: Text(
+                            subTitle,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.greenAccent,
+                                fontSize: 22.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 )
               : Container(),
-          !isLogin && !isRegister
-              ? Initial(
-                  title: title,
-                  subTitle: subTitle,
-                  onChangeState: () {
-                    _isLogin();
+          isLogin && !isRegister
+              ? Logar(
+                  email: email,
+                  password: password,
+                  onLogin: () {
+                    _sendLogin();
                   },
                   onChangeRegister: () {
                     _isRegiste();
                   },
                 )
-              : isLogin && !isRegister
-                  ? Logar(
-                      email: email,
-                      password: password,
-                      onLogin: () {
-                        _sendLogin();
-                      },
-                      onChangeRegister: () {
-                        _isRegiste();
-                      },
-                    )
-                  : Register(
-                      name: name,
-                      email: email,
-                      password: password,
-                      onRegister: () {},
-                      onReturnLogin: () {
-                        _isLogin();
-                      },
-                    )
+              : Register(
+                  name: name,
+                  email: email,
+                  password: password,
+                  onRegister: () {},
+                  onReturnLogin: () {
+                    _isLogin();
+                  },
+                ),
         ],
       ),
     );

@@ -63,12 +63,12 @@ class _Initial extends State<Initial> {
             padding: EdgeInsets.all(0.0),
             child: Ink(
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.green, Colors.greenAccent],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0)),
+                gradient: LinearGradient(
+                  colors: [Colors.green, Colors.greenAccent],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+              ),
               child: Container(
                 constraints: BoxConstraints(maxWidth: 340.0, minHeight: 50.0),
                 alignment: Alignment.center,
@@ -92,12 +92,12 @@ class _Initial extends State<Initial> {
             padding: EdgeInsets.all(0.0),
             child: Ink(
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xffBA9BA0), Color(0xffBA9BA0)],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0)),
+                gradient: LinearGradient(
+                  colors: [Color(0xffBA9BA0), Color(0xffBA9BA0)],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+              ),
               child: Container(
                 constraints: BoxConstraints(maxWidth: 340.0, minHeight: 50.0),
                 alignment: Alignment.center,

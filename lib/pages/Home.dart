@@ -1,8 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/loading.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_portal_imobiliario/database/database.dart';
 import 'package:flutter_portal_imobiliario/models/building.dart';
+import 'package:flutter_portal_imobiliario/widgets/Description.dart';
+import 'package:flutter_portal_imobiliario/widgets/TopBar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,6 +19,8 @@ class _Home extends State<Home> {
   final List<Building> items = [];
   PageController _controller;
   double scrollOfset = 0.0;
+  int initialIndex = 0;
+  bool condition = false;
 
   @override
   void initState() {
@@ -23,6 +31,12 @@ class _Home extends State<Home> {
     });
 
     getSimulate();
+
+    Timer(Duration(seconds: 2), () {
+      setState(() {
+        condition = true;
+      });
+    });
   }
 
   void getSimulate() {
@@ -35,7 +49,7 @@ class _Home extends State<Home> {
           Building(
             DataBase.building.keys.elementAt(i),
             DataBase.building.values.elementAt(i),
-            math.Random().nextInt(15000),
+            math.Random().nextDouble() * (2500 - 800) + 800,
             math.Random().nextInt(6),
           ),
         );
@@ -59,7 +73,7 @@ class _Home extends State<Home> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.greenAccent, Colors.white],
+                  colors: [Colors.greenAccent, Colors.white70],
                   stops: [.33, 1],
                 ),
               ),
@@ -68,30 +82,61 @@ class _Home extends State<Home> {
           PageView.builder(
             controller: _controller,
             itemCount: items.length,
+            onPageChanged: (index) {
+              setState(() {
+                initialIndex = index;
+              });
+            },
             itemBuilder: (context, index) {
               double aligment =
                   math.exp(-math.pow(scrollOfset - index, -4) / items.length);
-
-              final item = items.elementAt(index);
-
-              return Align(
-                alignment: Alignment(0, aligment),
-                child: Transform.rotate(
-                  angle: -(aligment * .5),
-                  child: Container(
-                    width: 180 - aligment * 5,
-                    height: 180 - aligment * 5,
-                    margin: EdgeInsets.only(right: 8),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(item.image),
+              return condition
+                  ? Align(
+                      alignment: Alignment(0, aligment),
+                      child: Transform.rotate(
+                        angle: -(aligment * .5),
+                        child: Container(
+                          width: 200 - aligment * 5,
+                          height: 200 - aligment * 5,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            image: DecorationImage(
+                              image: NetworkImage(items[index].image),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              );
+                    )
+                  : Center(
+                      child:
+                          Loading(indicator: BallPulseIndicator(), size: 100.0),
+                    );
             },
-          )
+          ),
+          Center(
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * .63),
+              child: Description(
+                items: items[initialIndex],
+              ),
+            ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.height * .87,
+            left: MediaQuery.of(context).size.width * .40,
+            child: Container(
+              width: 80,
+              height: 80,
+              decoration:
+                  BoxDecoration(color: Colors.blueGrey, shape: BoxShape.circle),
+              child: Icon(
+                Icons.house,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          TopBar()
         ],
       ),
     );

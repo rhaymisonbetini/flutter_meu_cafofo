@@ -6,7 +6,7 @@ class Building {
   @required
   String image;
   @required
-  int valor;
+  double valor;
   @required
   int stars;
   Building(this.name, this.image, this.valor, this.stars);
