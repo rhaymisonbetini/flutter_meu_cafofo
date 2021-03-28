@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_portal_imobiliario/pages/Profile.dart';
 import 'package:loading/indicator/ball_pulse_indicator.dart';
 import 'package:loading/loading.dart';
 import 'dart:math' as math;
@@ -125,14 +126,24 @@ class _Home extends State<Home> {
           Positioned(
             top: MediaQuery.of(context).size.height * .87,
             left: MediaQuery.of(context).size.width * .40,
-            child: Container(
-              width: 80,
-              height: 80,
-              decoration:
-                  BoxDecoration(color: Colors.blueGrey, shape: BoxShape.circle),
-              child: Icon(
-                Icons.house,
-                color: Colors.white,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Profile(),
+                  ),
+                );
+              },
+              child: Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                    color: Colors.blueGrey, shape: BoxShape.circle),
+                child: Icon(
+                  Icons.house,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),

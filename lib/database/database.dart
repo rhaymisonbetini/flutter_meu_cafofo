@@ -10,5 +10,10 @@ class DataBase {
         'https://mapio.net/images-immo-detalhe/1514233/casa-com-3-quartos-para-alugar-270-m2-por-r-2000mes-suissa-aracaju-se-img-0.jpeg',
   };
 
-  static const charactBuilind = [];
+  static const multImages = [
+    'https://cdn.casaferias.com.br/fotos/123440/list.jpg?425051',
+    'https://mapio.net/images-immo-detalhe/6168730/-img-0.jpeg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbbcM1qeoaYgoKiGlX5_Jhijmk5WWfcoi10w&usqp=CAU',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5zJGVRdjqnn3FXxQaE3a5iQcMkqta8KDNjA&usqp=CAU'
+  ];
 }
